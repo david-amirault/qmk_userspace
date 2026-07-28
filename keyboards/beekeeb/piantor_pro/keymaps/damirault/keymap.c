@@ -369,12 +369,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     const bool is_tap_hold = is_lt || IS_QK_MOD_TAP(keycode);
     const bool is_held = record->tap.count == 0;
     const bool is_tapped = !(is_tap_hold && is_held);
+    const uint16_t primary_keycode = get_primary_keycode(keycode);
 
     if (record->event.pressed) {
         press_timer = record->event.time;
 
         // Send queued tap code when we register a same-handed keypress.
-        if (queued_keycode != KC_NO) {
+        if (queued_keycode != KC_NO && queued_keycode != primary_keycode) {
             if (is_tapped && on_same_hands(record, &queued_record)) {
                 cw_tap(queued_keycode);
             }
@@ -435,12 +436,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         }
 
         if (is_tapped) {
-            cw_prep(get_primary_keycode(keycode));
+            cw_prep(primary_keycode);
         }
 
         // When an LT key is held, queue it for potential tapping.
         if (is_lt && is_held) {
-            queued_keycode = get_primary_keycode(keycode);
+            queued_keycode = primary_keycode;
             queued_record = *record;
         }
 
@@ -458,7 +459,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         }
 
         // When a queued LT key is raised, unqueue it.
-        if (is_lt && queued_keycode == get_primary_keycode(keycode)) {
+        if (is_lt && queued_keycode == primary_keycode) {
             queued_keycode = KC_NO;
         }
     }
@@ -473,6 +474,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM - 20;
         case BOTM_D:
         case BOTM_H:
+        case BOTM_V:
+        case BOTM_CM:
+        case BOTM_X:
+        case BOTM_DT:
             return TAPPING_TERM + 23;
         default:
             // Increase tapping term if a key was pressed recently.
