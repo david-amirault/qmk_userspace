@@ -342,6 +342,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             case QK_MODS ... QK_MODS_MAX:
             case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
                 break;
+            case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
+                reset_oneshot_layer();
             default:
                 cw_prep(primary_keycode);
         }
