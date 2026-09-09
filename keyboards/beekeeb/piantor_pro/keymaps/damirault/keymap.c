@@ -296,13 +296,12 @@ uint16_t get_magic_keycode(void) {
 }
 
 uint16_t get_primary_keycode(uint16_t keycode) {
-    const uint16_t basic = keycode & S(0xff);
-    const bool shifted = get_mods() & MOD_MASK_SHIFT;
+    const uint16_t basic = keycode & 0xff;
     switch (basic) {
         case KC_A ... KC_Z:
             return basic;
         default:
-            return shifted ? S(basic) : basic;
+            return keycode & S(0xff);
     }
 }
 
