@@ -35,14 +35,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [DEF] = LAYOUT_split_3x6_3(
         _______,    KC_Q,       KC_L,       KC_Y,       KC_G,       KC_K,                               KC_B,       KC_F,       KC_O,       KC_U,       KC_J,       _______,
         _______,    KC_C,       KC_R,       KC_S,       KC_T,       KC_M,                               MAGIC,      KC_N,       KC_A,       KC_E,       KC_I,       _______,
-        _______,    KC_Z,       KC_X,       KC_V,       KC_D,       KC_W,                               KC_P,       KC_H,       KC_CM,      KC_DT,      KC_SLSH,    _______,
+        _______,    KC_Z,       KC_X,       KC_V,       KC_D,       KC_W,                               KC_P,       KC_H,       KC_COMM,    KC_DOT,     KC_SLSH,    _______,
                                                         KC_TAB,     KC_SPC,     MO(LHS),    MO(RHS),    KC_BSPC,    KC_ENT
     ),
 
     [LHS] = LAYOUT_split_3x6_3(
         _______,    XXXXXXX,    KC_LCTL,    KC_LALT,    KC_LGUI,    XXXXXXX,                            S(KC_B),    S(KC_F),    S(KC_O),    S(KC_U),    S(KC_J),    _______,
         _______,    S(KC_C),    MO(NUM),    MO(NMS),    MO(CMD),    MO(CDS),                            MAGIC,      S(KC_N),    S(KC_A),    S(KC_E),    S(KC_I),    _______,
-        _______,    XXXXXXX,    KC_LCTL,    KC_LALT,    KC_LGUI,    XXXXXXX,                            S(KC_P),    S(KC_H),    S(KC_CM),   S(KC_DT),   S(KC_SLSH), _______,
+        _______,    XXXXXXX,    KC_LCTL,    KC_LALT,    KC_LGUI,    XXXXXXX,                            S(KC_P),    S(KC_H),    S(KC_COMM), S(KC_DOT),  S(KC_SLSH), _______,
                                                         _______,    _______,    _______,    KC_ESC,     S(KC_BSPC), S(KC_ENT)
     ),
 
@@ -61,14 +61,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [CMD] = LAYOUT_split_3x6_3(
-        _______,    XXXXXXX,    KC_LCTL,    KC_LALT,    KC_LGUI,    QK_BOOT,                            XXXXXXX,    KC_SCLN,    KC_MINS,    KC_DT,      XXXXXXX,    _______,
+        _______,    XXXXXXX,    KC_LCTL,    KC_LALT,    KC_LGUI,    QK_BOOT,                            XXXXXXX,    KC_SCLN,    KC_MINS,    KC_DOT,     XXXXXXX,    _______,
         _______,    XXXXXXX,    MO(NUM),    MO(NMS),    _______,    MO(CDS),                            KM_NB,      KM_NF,      KC_VOLD,    KC_VOLU,    KC_MUTE,    _______,
         _______,    XXXXXXX,    KC_LCTL,    KC_LALT,    KC_LGUI,    XXXXXXX,                            XXXXXXX,    KM_PH,      KC_BRID,    KC_BRIU,    XXXXXXX,    _______,
                                                         _______,    _______,    _______,    KC_ESC,     KC_BSPC,    KC_ENT
     ),
 
     [CDS] = LAYOUT_split_3x6_3(
-        _______,    XXXXXXX,    KC_LCTL,    KC_LALT,    KC_LGUI,    XXXXXXX,                            XXXXXXX,    S(KC_SCLN), S(KC_MINS), S(KC_DT),   XXXXXXX,    _______,
+        _______,    XXXXXXX,    KC_LCTL,    KC_LALT,    KC_LGUI,    XXXXXXX,                            XXXXXXX,    S(KC_SCLN), S(KC_MINS), S(KC_DOT),  XXXXXXX,    _______,
         _______,    XXXXXXX,    MO(NUM),    MO(NMS),    MO(CMD),    _______,                            KM_NB,      KM_NF,      S(KC_VOLD), S(KC_VOLU), S(KC_MUTE), _______,
         _______,    XXXXXXX,    KC_LCTL,    KC_LALT,    KC_LGUI,    XXXXXXX,                            XXXXXXX,    KM_PH,      S(KC_BRID), S(KC_BRIU), XXXXXXX,    _______,
                                                         _______,    _______,    _______,    S(KC_ESC),  S(KC_BSPC), S(KC_ENT)
