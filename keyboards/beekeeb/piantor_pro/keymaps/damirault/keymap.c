@@ -338,7 +338,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 cw_tap(KC_H);
                 break;
 
-            case QK_MODS ... QK_MODS_MAX:
+            case KC_LEFT_CTRL ... KC_RIGHT_GUI:
             case QK_MOMENTARY ... QK_MOMENTARY_MAX:
                 break;
             default:
