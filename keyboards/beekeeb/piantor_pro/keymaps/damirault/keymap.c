@@ -311,17 +311,18 @@ uint16_t get_primary_keycode(uint16_t keycode) {
 
 uint16_t magic_keycode = KC_NO;
 bool recent_tap = false;
-bool os_pending = false;
+uint8_t os_timer = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     const uint16_t primary_keycode = get_primary_keycode(keycode);
 
     if (record->event.pressed) {
         recent_tap = true;
-        if (os_pending) {
-            os_pending = false;
-            layer_off(LHS);
-            layer_off(RHS);
+        if (os_timer) {
+            if (--os_timer == 0) {
+                layer_off(LHS);
+                layer_off(RHS);
+            }
         }
 
         switch (keycode) {
@@ -378,7 +379,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                     layer_off(LHS);
                     layer_off(RHS);
                 } else {
-                    os_pending = true;
+                    os_timer = 2;
                 }
                 break;
         }
