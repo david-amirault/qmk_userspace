@@ -29,10 +29,6 @@ enum custom_keycodes {
     KM_NB,
     KM_NF,
     KM_PH,
-
-    // One shot.
-    OS_LEFT,
-    OS_RGHT,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -40,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    KC_Q,       KC_L,       KC_Y,       KC_G,       KC_K,                               KC_B,       KC_F,       KC_O,       KC_U,       KC_J,       _______,
         _______,    KC_C,       KC_R,       KC_S,       KC_T,       KC_M,                               MAGIC,      KC_N,       KC_A,       KC_E,       KC_I,       _______,
         _______,    KC_Z,       KC_X,       KC_V,       KC_D,       KC_W,                               KC_P,       KC_H,       KC_COMM,    KC_DOT,     KC_SLSH,    _______,
-                                                        KC_TAB,     KC_SPC,     OS_LEFT,   OS_RGHT,     KC_BSPC,    KC_ENT
+                                                        KC_TAB,     KC_SPC,     MO(LHS),   MO(RHS),     KC_BSPC,    KC_ENT
     ),
 
     [LHS] = LAYOUT_split_3x6_3(
@@ -310,21 +306,11 @@ uint16_t get_primary_keycode(uint16_t keycode) {
 }
 
 uint16_t magic_keycode = KC_NO;
-bool recent_tap = false;
-uint8_t os_timer = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     const uint16_t primary_keycode = get_primary_keycode(keycode);
 
     if (record->event.pressed) {
-        recent_tap = true;
-        if (os_timer) {
-            if (--os_timer == 0) {
-                layer_off(LHS);
-                layer_off(RHS);
-            }
-        }
-
         switch (keycode) {
             // Special keycodes.
             case CAPSWRD:
@@ -352,16 +338,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 cw_tap(KC_H);
                 break;
 
-            // One shot.
-            case OS_LEFT:
-                recent_tap = false;
-                layer_on(LHS);
-                break;
-            case OS_RGHT:
-                recent_tap = false;
-                layer_on(RHS);
-                break;
-
             case KC_LEFT_CTRL ... KC_RIGHT_GUI:
             case QK_MOMENTARY ... QK_MOMENTARY_MAX:
                 break;
@@ -372,15 +348,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         switch (keycode) {
             case MAGIC:
                 unregister_code16(magic_keycode);
-                break;
-            case OS_LEFT:
-            case OS_RGHT:
-                if (recent_tap) {
-                    layer_off(LHS);
-                    layer_off(RHS);
-                } else {
-                    os_timer = 2;
-                }
                 break;
         }
     }
